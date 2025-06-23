@@ -1,9 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using ProjetoFinalApi.Locacao.Models;
+using ProjetoFinalApi.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoLocal"));
+});
+
 builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 var app = builder.Build();
